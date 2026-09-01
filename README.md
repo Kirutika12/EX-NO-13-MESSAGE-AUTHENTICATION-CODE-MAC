@@ -1,4 +1,6 @@
 # EX-NO-13-MESSAGE-AUTHENTICATION-CODE-MAC
+### NAME: KIRUTIKA K R
+### REG NO: 212224230128
 
 ## AIM:
 To implement MESSAGE AUTHENTICATION CODE(MAC)
@@ -25,10 +27,61 @@ To implement MESSAGE AUTHENTICATION CODE(MAC)
 5. Security: The security of the MAC relies on the secret key \( K \) and the strength of the hash function \( H \), ensuring that an attacker cannot forge a valid MAC without knowledge of the key.
 
 ## Program:
-
+```
+#include <stdio.h> 
+#include <string.h> 
+  
+unsigned long simpleHash(char *str) 
+{ 
+    unsigned long hash = 5381; 
+    int c; 
+  
+    while ((c = *str++)) 
+        hash = ((hash << 5) + hash) + c; 
+  
+    return hash; 
+} 
+  
+int main() 
+{ 
+    char key[100], message[500]; 
+    char input[600]; 
+    unsigned long mac, receivedMAC; 
+  
+    printf("Enter Secret Key: "); 
+    scanf("%s", key); 
+  
+    getchar(); 
+  
+    printf("Enter Message: "); 
+    fgets(message, sizeof(message), stdin); 
+    message[strcspn(message, "\n")] = '\0'; 
+    strcpy(input, key); 
+    strcat(input, message); 
+    mac = simpleHash(input); 
+  
+    printf("\nGenerated MAC: %lu\n", mac); 
+    printf("\nEnter MAC for verification: "); 
+    scanf("%lu", &receivedMAC); 
+  
+    if (mac == receivedMAC) 
+    { 
+        printf("\nMAC Verification Successful!\n"); 
+        printf("Message is authentic and unchanged.\n"); 
+    } 
+    else 
+    { 
+        printf("\nMAC Verification Failed!\n"); 
+        printf("Message is not authentic or has been modified.\n"); 
+    } 
+  
+    return 0; 
+}
+```
 
 
 ## Output:
+<img width="538" height="408" alt="image" src="https://github.com/user-attachments/assets/2712fa94-db7a-4576-b61b-65794e8bde5d" />
 
 
 ## Result:
